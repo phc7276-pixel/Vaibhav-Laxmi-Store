@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vaibhav laxmi store</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+  font-family:Arial,sans-serif;
+  background:#f5f7f4;
+  color:#222;
+}
+
+header{
+  background:#fff;
+  position:sticky;
+  top:0;
+  z-index:100;
+  box-shadow:0 2px 12px rgba(0,0,0,.1);
+}
+
+.nav{
+  max-width:1100px;
+  margin:auto;
+  padding:15px 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.logo{
+  color:#16803c;
+  font-size:23px;
+  font-weight:bold;
+}
+
+.cart-btn{
+  background:#16803c;
+  color:white;
+  border:0;
+  padding:10px 16px;
+  border-radius:10px;
+  cursor:pointer;
+  font-size:16px;
+}
+
+.search{
+  max-width:1100px;
+  margin:auto;
+  padding:0 20px 15px;
+}
+
+.search input{
+  width:100%;
+  padding:14px;
+  border:1px solid #ddd;
+  border-radius:12px;
+  font-size:16px;
+}
+
+.hero{
+  max-width:1100px;
+  margin:20px auto;
+  padding:55px 30px;
+  border-radius:25px;
+  background:linear-gradient(120deg,#dff5e2,#fff1c9);
+}
+
+.hero h1{
+  font-size:42px;
+  max-width:650px;
+  margin:10px 0;
+}
+
+.hero p{
+  font-size:18px;
+  color:#59645d;
+  margin-bottom:20px;
+}
+
+.btn{
+  background:#16803c;
+  color:white;
+  border:0;
+  padding:13px 20px;
+  border-radius:10px;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+.section{
+  max-width:1100px;
+  margin:35px auto;
+  padding:0 20px;
+}
+
+.section-title{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:18px;
+}
+
+select{
+  padding:10px;
+  border:1px solid #ddd;
+  border-radius:9px;
+}
+
+.offers{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
+}
+
+.offer{
+  background:white;
+  padding:25px;
+  border-radius:16px;
+  box-shadow:0 3px 12px rgba(0,0,0,.06);
+}
+
+.offer h3{
+  color:#16803c;
+  margin-bottom:8px;
+}
+
+.products{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:16px;
+}
+
+.product{
+  background:white;
+  border-radius:16px;
+  overflow:hidden;
+  box-shadow:0 3px 12px rgba(0,0,0,.07);
+}
+
+.product-image{
+  height:150px;
+  background:#edf5ed;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:55px;
+}
+
+.product-info{
+  padding:15px;
+}
+
+.product-info h3{
+  font-size:17px;
+  margin-bottom:5px;
+}
+
+.unit{
+  color:#777;
+  font-size:13px;
+}
+
+.price{
+  font-size:20px;
+  font-weight:bold;
+  margin:10px 0;
+}
+
+.add{
+  width:100%;
+  padding:10px;
+  border:1px solid #16803c;
+  background:white;
+  color:#16803c;
+  border-radius:9px;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+.add:hover{
+  background:#16803c;
+  color:white;
+}
+
+.contact{
+  background:white;
+  padding:25px;
+  border-radius:18px;
+}
+
+.contact-buttons{
+  display:flex;
+  gap:10px;
+  margin-top:15px;
+}
+
+.contact-buttons a{
+  text-decoration:none;
+  padding:12px 18px;
+  border-radius:10px;
+  font-weight:bold;
+}
+
+.whatsapp{
+  background:#20b958;
+  color:white;
+}
+
+.call{
+  background:#eaf2eb;
+  color:#16803c;
+}
+
+footer{
+  text-align:center;
+  padding:30px;
+  color:#777;
+}
+
+/* CART */
+
+.overlay{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.55);
+  z-index:200;
+}
+
+.overlay.show{
+  display:block;
+}
+
+.cart{
+  position:fixed;
+  right:-450px;
+  top:0;
+  width:min(450px,100%);
+  height:100%;
+  background:white;
+  z-index:201;
+  transition:.3s;
+  display:flex;
+  flex-direction:column;
+}
+
+.cart.show{
+  right:0;
+}
+
+.cart-header{
+  padding:20px;
+  display:flex;
+  justify-content:space-between;
+  border-bottom:1px solid #eee;
+}
+
+.cart-header button{
+  border:0;
+  background:none;
+  font-size:20px;
+  cursor:pointer;
+}
+
+.cart-items{
+  overflow:auto;
+  flex:1;
+}
+
+.cart-item{
+  padding:15px;
+  border-bottom:1px solid #eee;
+  display:flex;
+  gap:10px;
+  align-items:center;
+}
+
+.cart-item-info{
+  flex:1;
+}
+
+.quantity button{
+  border:0;
+  background:#edf5ed;
+  padding:6px 10px;
+  border-radius:7px;
+  cursor:pointer;
+}
+
+.cart-bottom{
+  padding:18px;
+  border-top:1px solid #eee;
+}
+
+.total{
+  display:flex;
+  justify-content:space-between;
+  font-size:21px;
+  margin-bottom:15px;
+}
+
+.checkout{
+  width:100%;
+}
+
+/* CHECKOUT */
+
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.6);
+  z-index:300;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+
+.modal.show{
+  display:flex;
+}
+
+.modal-box{
+  background:white;
+  width:min(500px,100%);
+  padding:25px;
+  border-radius:18px;
+  position:relative;
+}
+
+.close{
+  position:absolute;
+  right:15px;
+  top:12px;
+  border:0;
+  background:none;
+  font-size:20px;
+  cursor:pointer;
+}
+
+.modal-box input,
+.modal-box textarea,
+.modal-box select{
+  width:100%;
+  padding:12px;
+  margin:7px 0;
+  border:1px solid #ddd;
+  border-radius:9px;
+}
+
+.modal-box textarea{
+  min-height:90px;
+}
+
+@media(max-width:800px){
+  .products{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .offers{
+    grid-template-columns:1fr;
+  }
+
+  .hero h1{
+    font-size:32px;
+  }
+}
+
+@media(max-width:450px){
+  .products{
+    gap:10px;
+  }
+
+  .product-image{
+    height:115px;
+  }
+
+  .hero{
+    margin:10px;
+    padding:35px 20px;
+  }
+
+  .hero h1{
+    font-size:28px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+<div class="nav">
+  <div class="logo">🛒 Apni Kirana Shop</div>
+
+  <button class="cart-btn" onclick="openCart()">
+    🛍️ Cart (<span id="cartCount">0</span>)
+  </button>
+</div>
+
+<div class="search">
+  <input
+    id="search"
+    type="text"
+    placeholder="Search atta, rice, biscuits..."
+    oninput="displayProducts()"
+  >
+</div>
+
+</header>
+
+
+<section class="hero">
+
+<div>
+  <small>LOCAL • FRESH • FAST</small>
+
+  <h1>
+    Your neighbourhood grocery store, now online.
+  </h1>
+
+  <p>
+    Daily grocery essentials delivered to your doorstep.
+  </p>
+
+  <button
+    class="btn"
+    onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})"
+  >
+    Shop Now
+  </button>
+</div>
+
+</section>
+
+
+<section class="section">
+
+<h2>Today's Offers</h2>
+
+<br>
+
+<div class="offers">
+
+<div class="offer">
+  <h3>🔥 10% OFF</h3>
+  <p>Selected grocery products</p>
+</div>
+
+<div class="offer">
+  <h3>🥛 Fresh Dairy</h3>
+  <p>Fresh milk and dairy products</p>
+</div>
+
+<div class="offer">
+  <h3>🚚 Quick Delivery</h3>
+  <p>Fast local delivery</p>
+</div>
+
+</div>
+
+</section>
+
+
+<section class="section" id="products">
+
+<div class="section-title">
+
+<h2>Our Products</h2>
+
+<select id="category" onchange="displayProducts()">
+<option value="All">All Categories</option>
+<option>Atta & Rice</option>
+<option>Dal & Pulses</option>
+<option>Oil & Masala</option>
+<option>Snacks</option>
+<option>Beverages</option>
+<option>Dairy</option>
+</select>
+
+</div>
+
+<div class="products" id="productList"></div>
+
+</section>
+
+
+<section class="section">
+
+<div class="contact">
+
+<h2>Contact Our Shop</h2>
+
+<p style="margin-top:10px">
+Need something else? Contact us directly.
+</p>
+
+<div class="contact-buttons">
+
+<a
+class="whatsapp"
+id="whatsappLink"
+href="#"
+target="_blank"
+>
+💬 WhatsApp
+</a>
+
+<a
+class="call"
+href="tel:+919999999999"
+>
+📞 Call
+</a>
+
+</div>
+
+</div>
+
+</section>
+
+
+<footer>
+
+© 2026 Apni Kirana Shop • All Rights Reserved
+
+</footer>
+
+
+<!-- CART -->
+
+<div
+class="overlay"
+id="overlay"
+onclick="closeCart()"
+></div>
+
+<div class="cart" id="cart">
+
+<div class="cart-header">
+
+<h2>Your Cart</h2>
+
+<button onclick="closeCart()">✕</button>
+
+</div>
+
+<div
+class="cart-items"
+id="cartItems"
+></div>
+
+<div class="cart-bottom">
+
+<div class="total">
+
+<span>Total</span>
+
+<b id="cartTotal">₹0</b>
+
+</div>
+
+<button
+class="btn checkout"
+onclick="openCheckout()"
+>
+Proceed to Checkout
+</button>
+
+</div>
+
+</div>
+
+
+<!-- CHECKOUT MODAL -->
+
+<div
+class="modal"
+id="checkoutModal"
+>
+
+<div class="modal-box">
+
+<button
+class="close"
+onclick="closeCheckout()"
+>
+✕
+</button>
+
+<h2>Delivery Details</h2>
+
+<br>
+
+<input
+id="customerName"
+placeholder="Full Name"
+>
+
+<input
+id="customerPhone"
+placeholder="Mobile Number"
+type="tel"
+>
+
+<textarea
+id="customerAddress"
+placeholder="Complete Delivery Address"
+></textarea>
+
+<select id="paymentMethod">
+
+<option value="cod">
+Cash on Delivery
+</option>
+
+<option value="online">
+Online Payment
+</option>
+
+</select>
+
+<br><br>
+
+<button
+class="btn"
+style="width:100%"
+onclick="placeOrder()"
+>
+Place Order
+</button>
+
+</div>
+
+</div>
+
+
+<script>
+
+const SHOP_WHATSAPP = "7276711309";
+
+const products = [
+
+{
+id:1,
+name:"Aashirvaad Atta",
+category:"Atta & Rice",
+unit:"5 kg",
+price:290,
+emoji:"🌾"
+},
+
+{
+id:2,
+name:"Basmati Rice",
+category:"Atta & Rice",
+unit:"5 kg",
+price:420,
+emoji:"🍚"
+},
+
+{
+id:3,
+name:"Toor Dal",
+category:"Dal & Pulses",
+unit:"1 kg",
+price:165,
+emoji:"🫘"
+},
+
+{
+id:4,
+name:"Moong Dal",
+category:"Dal & Pulses",
+unit:"1 kg",
+price:145,
+emoji:"🫘"
+},
+
+{
+id:5,
+name:"Sunflower Oil",
+category:"Oil & Masala",
+unit:"1 L",
+price:145,
+emoji:"🫗"
+},
+
+{
+id:6,
+name:"Turmeric Powder",
+category:"Oil & Masala",
+unit:"200 g",
+price:65,
+emoji:"🌕"
+},
+
+{
+id:7,
+name:"Parle-G Biscuits",
+category:"Snacks",
+unit:"800 g",
+price:80,
+emoji:"🍪"
+},
+
+{
+id:8,
+name:"Potato Chips",
+category:"Snacks",
+unit:"100 g",
+price:30,
+emoji:"🥔"
+},
+
+{
+id:9,
+name:"Coca-Cola",
+category:"Beverages",
+unit:"750 ml",
+price:45,
+emoji:"🥤"
+},
+
+{
+id:10,
+name:"Tea",
+category:"Beverages",
+unit:"250 g",
+price:125,
+emoji:"☕"
+},
+
+{
+id:11,
+name:"Milk",
+category:"Dairy",
+unit:"1 L",
+price:62,
+emoji:"🥛"
+},
+
+{
+id:12,
+name:"Curd",
+category:"Dairy",
+unit:"500 g",
+price:40,
+emoji:"🥣"
+}
+
+];
+
+
+let cart =
+JSON.parse(localStorage.getItem("kiranaCart")) || {};
+
+
+function displayProducts(){
+
+const search =
+document.getElementById("search").value.toLowerCase();
+
+const category =
+document.getElementById("category").value;
+
+
+const filtered =
+products.filter(product =>
+
+(product.name.toLowerCase().includes(search) ||
+product.category.toLowerCase().includes(search))
+
+&&
+
+(category === "All" ||
+product.category === category)
+
+);
+
+
+const list =
+document.getElementById("productList");
+
+
+if(filtered.length === 0){
+
+list.innerHTML =
+"<p>No products found.</p>";
+
+return;
+
+}
+
+
+list.innerHTML =
+filtered.map(product => `
+
+<div class="product">
+
+<div class="product-image">
+
+${product.emoji}
+
+</div>
+
+<div class="product-info">
+
+<h3>
+${product.name}
+</h3>
+
+<div class="unit">
+${product.unit} • ${product.category}
+</div>
+
+<div class="price">
+₹${product.price}
+</div>
+
+<button
+class="add"
+onclick="addToCart(${product.id})"
+>
+Add to Cart
+</button>
+
+</div>
+
+</div>
+
+`).join("");
+
+}
+
+
+function addToCart(id){
+
+if(cart[id]){
+cart[id]++;
+}
+else{
+cart[id]=1;
+}
+
+saveCart();
+
+openCart();
+
+}
+
+
+function changeQuantity(id,change){
+
+cart[id] =
+(cart[id] || 0) + change;
+
+
+if(cart[id] <= 0){
+delete cart[id];
+}
+
+
+saveCart();
+
+}
+
+
+function saveCart(){
+
+localStorage.setItem(
+"kiranaCart",
+JSON.stringify(cart)
+);
+
+renderCart();
+
+updateCartCount();
+
+}
+
+
+function updateCartCount(){
+
+const count =
+Object.values(cart)
+.reduce((total,quantity)=>total+quantity,0);
+
+document.getElementById("cartCount")
+.textContent=count;
+
+}
+
+
+function renderCart(){
+
+const container =
+document.getElementById("cartItems");
+
+
+const ids =
+Object.keys(cart);
+
+
+if(ids.length === 0){
+
+container.innerHTML =
+"<p style='padding:20px'>Your cart is empty.</p>";
+
+document.getElementById("cartTotal")
+.textContent="₹0";
+
+return;
+
+}
+
+
+let total=0;
+
+
+container.innerHTML =
+ids.map(id => {
+
+const product =
+products.find(p=>p.id == id);
+
+const quantity =
+cart[id];
+
+const productTotal =
+product.price * quantity;
+
+total += productTotal;
+
+
+return `
+
+<div class="cart-item">
+
+<div style="font-size:30px">
+${product.emoji}
+</div>
+
+<div class="cart-item-info">
+
+<b>${product.name}</b>
+
+<div>
+₹${product.price} × ${quantity}
+</div>
+
+</div>
+
+<div class="quantity">
+
+<button
+onclick="changeQuantity(${product.id},-1)"
+>
+−
+</button>
+
+${quantity}
+
+<button
+onclick="changeQuantity(${product.id},1)"
+>
++
+</button>
+
+</div>
+
+</div>
+
+`;
+
+}).join("");
+
+
+document.getElementById("cartTotal")
+.textContent="₹"+total;
+
+}
+
+
+function openCart(){
+
+document
+.getElementById("cart")
+.classList.add("show");
+
+document
+.getElementById("overlay")
+.classList.add("show");
+
+renderCart();
+
+}
+
+
+function closeCart(){
+
+document
+.getElementById("cart")
+.classList.remove("show");
+
+document
+.getElementById("overlay")
+.classList.remove("show");
+
+}
+
+
+function openCheckout(){
+
+if(Object.keys(cart).length === 0){
+
+alert("Your cart is empty.");
+
+return;
+
+}
+
+document
+.getElementById("checkoutModal")
+.classList.add("show");
+
+}
+
+
+function closeCheckout(){
+
+document
+.getElementById("checkoutModal")
+.classList.remove("show");
+
+}
+
+
+function placeOrder(){
+
+const name =
+document.getElementById("customerName").value.trim();
+
+const phone =
+document.getElementById("customerPhone").value.trim();
+
+const address =
+document.getElementById("customerAddress").value.trim();
+
+const payment =
+document.getElementById("paymentMethod").value;
+
+
+if(!name || !phone || !address){
+
+alert("Please enter your name, mobile number and address.");
+
+return;
+
+}
+
+
+let total=0;
+
+let message =
+"Hello, I want to place an order from Apni Kirana Shop.%0A%0A";
+
+
+Object.keys(cart).forEach(id => {
+
+const product =
+products.find(p=>p.id==id);
+
+const quantity =
+cart[id];
+
+const productTotal =
+product.price * quantity;
+
+total += productTotal;
+
+
+message +=
+`${product.name} - ${product.unit} x ${quantity} = ₹${productTotal}%0A`;
+
+});
+
+
+message +=
+`%0ATotal: ₹${total}`;
+
+message +=
+`%0A%0ACustomer: ${encodeURIComponent(name)}`;
+
+message +=
+`%0AMobile: ${encodeURIComponent(phone)}`;
+
+message +=
+`%0AAddress: ${encodeURIComponent(address)}`;
+
+message +=
+`%0APayment: ${encodeURIComponent(payment)}`;
+
+
+if(payment === "online"){
+
+alert(
+"Online payment gateway ko real payment lene ke liye Razorpay/Stripe jaise payment gateway se connect karna hoga. Abhi order WhatsApp par jayega."
+);
+
+}
+
+
+window.open(
+"https://wa.me/" +
+SHOP_WHATSAPP +
+"?text=" +
+message,
+"_blank"
+);
+
+
+cart={};
+
+saveCart();
+
+closeCheckout();
+
+closeCart();
+
+}
+
+
+document.getElementById("whatsappLink").href =
+"https://wa.me/" + SHOP_WHATSAPP;
+
+
+displayProducts();
+
+renderCart();
+
+updateCartCount();
+
+</script>
+
+</body>
+</html>
